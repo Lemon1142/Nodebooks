@@ -1,0 +1,57 @@
+# 面向对象第二天
+
+## 继承
+- 一个对象可以使用另一个对象的东西，就叫继承。
+- 一个对象可以使用本不属于自己的东西，就叫继承。
+- js中的原型就是对继承特性的实现。
+
+### 继承方式1 - 默认的原型继承( 很常用 ) 
+```
+function Fn() {}
+Fn.prototype.value = 100;
+var fn = new Fn();
+```
+### 继承方式2 - 覆写构造函数的显式原型( 很常用 ) 
+```
+function Fn() {}
+Fn.prototype = {
+     value: 100
+ }
+var fn = new Fn();
+```
+### 继承方式3 - 给显式原型混入属性( 很常用 ) 
+```
+function extend(o1,o2){
+     for(var key in o2){
+       o1[key]=o2[key];
+    }
+}
+var obj = { add: function (a,b) { console.log(a+b) } } 
+function Fn() {}
+extend(Fn.prototype, obj);
+extend(Fn.prototype, {
+    value: 100
+});
+var fn = new Fn();
+
+```
+### 继承方式4 - Object.create（很少用）
+```
+var obj={value:100};
+var newObj=Object.create(obj);
+```
+### 继承方式5 - 借用Object.create方法覆写显式原型( 很少用 )
+```
+var obj = { value: 100 }
+function Fn() {}
+Fn.prototype = Object.create(obj);
+var fn = new Fn();
+```
+### 继承方式6 - 复合式原型继承( 很少用 ) 
+```
+function PrFn() {}
+PrFn.prototype.value = 100;
+function Fn() {}
+Fn.prototype = new PrFn()
+var fn = new Fn();
+```
